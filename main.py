@@ -11,6 +11,7 @@ from urllib.parse import urlencode
 import urllib.parse as urlparse
 import logging
 import datetime
+import sys
 
 import requests
 import socketio
@@ -79,6 +80,7 @@ def register_client(server, token, is_server=False):
     except Exception as e:
         logging.error(resp.text)
         logging.exception("Error while trying to convert response to json:")
+        return ""
     return resp_json['client_id']
 
 def add_arguments():
@@ -144,6 +146,9 @@ def main():
     logging.debug("Using token: {}".format(token))
     # Register client
     client_id = register_client(args.server, token, args.is_server)
+    if not client_id:
+        logger.error("Unable to get client token from server, exiting")
+        sys.exit(1)
 
     # Now listen to the websocket for test commands
     #websocket_uri = urljoin(args.server, "listen")

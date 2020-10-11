@@ -1,0 +1,4 @@
+python-socketio
+requests
+aiohttp
+pyjwt

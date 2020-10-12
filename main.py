@@ -15,7 +15,6 @@ import sys
 
 import requests
 import socketio
-import scitokens
 import jwt
 
 
